@@ -12,11 +12,18 @@ function handleClick() {
     // Если это ячейка с кротом, увеличиваем счетчик убитых кротов
     score++;
     deadCount.textContent = score;
-
+    if (Number(deadCount.textContent >= 10)) {
+      alert('Победа!');
+      score = 0;
+    }
   } else if (!this.classList.contains("hole_has-mole")){
     // Если это пустая ячейка, увеличиваем счетчик промахов
     misses++;
     lostCount.textContent = misses;
+    if (Number(lostCount.textContent >= 5)) {
+      alert('Проигрыш!');
+      misses = 0;
+    }
   }
 }
 
