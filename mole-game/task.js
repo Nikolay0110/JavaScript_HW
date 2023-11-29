@@ -15,6 +15,9 @@ function handleClick() {
     if (Number(deadCount.textContent >= 10)) {
       alert('Победа!');
       score = 0;
+      misses = 0;
+      deadCount.textContent = score;
+      lostCount.textContent = misses;
     }
   } else if (!this.classList.contains("hole_has-mole")){
     // Если это пустая ячейка, увеличиваем счетчик промахов
@@ -23,6 +26,9 @@ function handleClick() {
     if (Number(lostCount.textContent >= 5)) {
       alert('Проигрыш!');
       misses = 0;
+      score = 0;
+      deadCount.textContent = score;
+      lostCount.textContent = misses;
     }
   }
 }
