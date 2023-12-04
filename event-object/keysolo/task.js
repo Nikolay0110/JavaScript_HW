@@ -19,14 +19,10 @@ class Game {
   registerEvents() {
     let onKey = (e) => {
       const current = this.currentSymbol
-      if (e.key === 'Shift'){
-      return
-      }
-      if (current.textContent.toLowerCase() == e.key.toLowerCase()) {
+      if (e.key === 'Shift') return;
+      if (current.textContent.toLowerCase() === e.key.toLowerCase()) {
       this.success()
-      } else {
-      this.fail()
-      }
+      } else this.fail();
       }
       document.addEventListener('keydown', onKey)
   }

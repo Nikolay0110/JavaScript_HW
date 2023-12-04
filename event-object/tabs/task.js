@@ -1,24 +1,16 @@
-const element = document.querySelector('.tab')
-const list = element.querySelector('.tab__content ')
+const arr1 = Array.from(document.querySelectorAll('.tab'));
+const arr2 = Array.from(document.querySelectorAll('.tab__content'));
+const scan = document.querySelector('.tab__navigation');
 
-addEventListener('click', element.onClick = () => {
-    element.classList.add('active_tab')
-})
-
-
-
-
-
-
-
-//
-// function activeClick (e) {
-//     element.onclick = function (e) {
-//         e.classList.add('tab_active');
-//     }
-//     list.onclick = function (e) {
-//         e.classList.add('tab__content_active');
-//     }
-//     e.addEventListener('click', activeClick)
-// }
-
+scan.addEventListener('click', (event) => {
+    const def = arr1.indexOf(event.target);
+    console.log(def);
+    for (let i = 0; i < arr1.length; i++) {
+        if (i !== def) {
+            arr1[i].classList.remove('tab_active');
+            arr2[i].classList.remove('tab__content_active');
+        }
+        arr1[def].classList.add('tab_active');
+        arr2[def].classList.add('tab__content_active');
+    }
+});
