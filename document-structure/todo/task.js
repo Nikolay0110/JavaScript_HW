@@ -1,45 +1,35 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const taskInput = document.getElementById('task__input');
-  const tasksList = document.getElementById('tasks__list');
+document.addEventListener('DOMContentLoaded', function () {
+    const text = document.getElementById('task__input');
+    const task = document.getElementById('tasks__list');
+    const taskAdd = document.getElementById('tasks__add');
 
-  // Функция для создания новой задачи
-  function createTask(title) {
-    const task = document.createElement('div');
-    task.classList.add('task');
+    // Функция для создания новой задачи
+    function createTask(taskText) {
+        if (taskText.length !== 0) {
+            const newTask = document.createElement('div');
+            newTask.classList.add('task');
+            newTask.innerHTML = `
+                <div class="task_title">
+                    ${taskText}
+                </div>
+                <a href="#" class="task__remove">&times;</a>
+            `;
+            task.appendChild(newTask);
 
-    const taskTitle = document.createElement('div');
-    taskTitle.classList.add('task__title');
-    taskTitle.textContent = title;
+            // Добавляем обработчик события на кнопку удаления задачи
+            const taskRemove = newTask.querySelector('.task__remove');
+            taskRemove.addEventListener('click', function () {
+                newTask.remove();
+            });
+        }
+    }
 
-    const taskRemove = document.createElement('a');
-    taskRemove.href = '#';
-    taskRemove.classList.add('task__remove');
-    taskRemove.textContent = '×';
-
-    task.appendChild(taskTitle);
-    task.appendChild(taskRemove);
-    tasksList.appendChild(task);
-
-    // Добавляем обработчик события на кнопку удаления задачи
-    taskRemove.addEventListener('click', function() {
-      task.remove();
+    // Обработчик события для добавления задачи по нажатию кнопки "Добавить"
+    taskAdd.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (text.value.trim() !== '') {
+            createTask(text.value.trim());
+            text.value = '';
+        }
     });
-  }
-
-  // Обработчик события для добавления задачи по нажатию клавиши Enter
-  taskInput.addEventListener('keypress', function(event) {
-    if (event.key === 'Enter' && taskInput.value.trim() !== '') {
-      createTask(taskInput.value.trim());
-      taskInput.value = '';
-    }
-  });
-
-  // Обработчик события для добавления задачи по нажатию кнопки "Добавить"
-  document.getElementById('tasks__add').addEventListener('click', function(e) {
-      e.preventDefault();
-      if (taskInput.value.trim() !== '') {
-      createTask(taskInput.value.trim());
-      taskInput.value = '';
-    }
-  });
 });
