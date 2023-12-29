@@ -14,7 +14,7 @@ function getCookie(status) {  // Поиск заданного cookie
     const pairs = document.cookie.split('; ');  // Получение cookie и добавление в массив по разделителю
     const cookie = pairs.find(value => value.startsWith(status));  // Поиск в массиве нужного cookie
     if (cookie) {  // Обработка на случай ошибки
-        return cookie.substr(status.length + 1);  // Получает значение, без ключа cookie
+        return cookie.substring(status.length + 1);  // Получает значение, без ключа cookie
     } else {
         return ''; // Или можно вернуть null, undefined или любое другое подходящее значение по умолчанию
     }
