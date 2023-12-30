@@ -1,34 +1,27 @@
-const url = 'https://students.netoservices.ru/nestjs-backend/upload';
+const xhr = new XMLHttpRequest();
+const form = document.forms.form;
 const progressBar = document.getElementById('progress');
+const content = document.querySelector('.content');
 
-function updateProgress(loaded, total) {
-    const progress = (loaded / total) * 100;
-    progressBar.value = progress;
-}
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const xhr = new XMLHttpRequest();
 
-async function sendFile(formData) {
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            body: formData,
-            onProgress: function (event) {
-                if (event.lengthComputable) {
-                    const loaded = event.loaded;
-                    const total = event.total;
-                    updateProgress(loaded, total);
-                }
-            }
-        });
+    xhr.open('POST', 'https://students.netoservices.ru/nestjs-backend/upload');
 
-        if (response.ok) {
-            console.log('Файл успешно загружен');
-        } else {
-            console.error('Ошибка загрузки файла:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Произошла ошибка при загрузке файла:', error);
+    xhr.upload.onprogress = (event) => {
+        progressBar.value = event.loaded / event.total;
     }
-}
 
-const formData = new FormData(form);
-sendFile(formData);
+    xhr.upload.onload = () => {
+        console.log('Файл успешно загружен на сервер')
+    }
+
+    xhr.upload.onerror = () => {
+        console.log('Ошибка загрузки файла на сервер')
+    }
+
+    const formData = new FormData(form);
+    xhr.send(formData);
+
+});
